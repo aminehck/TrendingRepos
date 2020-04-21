@@ -1,22 +1,23 @@
 <template>
 	<div class="repo-item -shadow">
 		<div class="repo-img">
-			<img src="https://avatars1.githubusercontent.com/u/35059503?v=4">
+			<img :src=repo.avatar>
 		</div>
 		<div class="repo-info">
-			<h2>Repo name</h2>
-			<p>Repo description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure eius exercitationem aperiam. Ea possimus dolores assumenda harum odit. Rerum nesciunt culpa ut eveniet quos officiis laboriosam esse? Quidem, alias rerum!</p>
+			<h2>{{repo.name}}</h2>
+			<p>{{repo.description}}</p>
 			<hr>
-			<button type="button" class="btn btn-sm btn-primary">Stars: 118k</button>
-			<button type="button" class="btn btn-sm btn-danger">Issues: 1.6k</button>
-			<span>Submitted 30 days ago by aminefreelancer</span>
+			<button type="button" class="btn btn-sm btn-primary">Stars: {{repo.stars}}</button>
+			<button type="button" class="btn btn-sm btn-danger">Issues: {{repo.issues}}</button>
+			<span>Submitted {{repo.days}} days ago by {{repo.owner}}</span>
 		</div>
 	</div>
 </template>
 
 <script>
 	export default {
-		
+		name: "Repos",
+		props: ["repo"],
 	}
 </script>
 
