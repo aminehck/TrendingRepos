@@ -1,15 +1,19 @@
 <template>
 	<div class="repo-item -shadow">
 		<div class="repo-img">
-			<img :src=repo.avatar>
+			<img :src=repo.owner.avatar_url>
 		</div>
 		<div class="repo-info">
 			<h2>{{repo.name}}</h2>
 			<p>{{repo.description}}</p>
 			<hr>
-			<button type="button" class="btn btn-sm btn-primary">Stars: {{repo.stars}}</button>
-			<button type="button" class="btn btn-sm btn-danger">Issues: {{repo.issues}}</button>
-			<span>Submitted {{repo.days}} days ago by {{repo.owner}}</span>
+			<button type="button" class="btn btn-sm btn-primary">
+				<i class="fa fa-star"></i> Stars: {{repo.stargazers_count}}
+			</button>
+			<button type="button" class="btn btn-sm btn-danger">
+				<i class="fa fa-exclamation-circle"></i> Issues: {{repo.open_issues_count}}
+			</button>
+			<span>Submitted {{repo.created_at}} days ago by {{repo.owner.login}}</span>
 		</div>
 	</div>
 </template>
@@ -35,10 +39,16 @@
 .repo-img {
 	flex-direction: column;
 }
+.repo-img img {
+	width:150px;
+	height:150px;
+}
+
 .repo-info {
 	flex-direction: column;
 	margin-left: 40px
 }
+
 .btn {
 	margin: 0px 5px;
 }
