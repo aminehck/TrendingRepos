@@ -1,29 +1,42 @@
 <template>
 	<div id="app">
 		<RepoList v-bind:repos="repos" />
+		<Trigger @triggerIntersected="loadMore"/>
 	</div>
 </template>
 
 <script>
 import RepoList from '@/components/RepoList.vue';
-import axios from 'axios';
+import Trigger from '@/components/Trigger.vue';
+import TriggerService from '@/services/TriggerService.js'
+
 export default {
 	name: 'App',
 	components: {
 		RepoList,
+		Trigger
 	},
 	data() {
+		let date = new Date();
+		date.setDate(date.getDate() - 30);
 		return {
-			repos: []
+			repos: [],
+			page: 0,
+			lastMonth: date.toISOString().split('T')[0],
 		}
 	},
 	created() {
-		let date = new Date();
-		date.setDate(date.getDate() - 30);
-		const lastMonth = date.toISOString().split('T')[0];
-		axios.get('https://api.github.com/search/repositories?q=created:%3E'+lastMonth+'&per_page=30&sort=stars&order=desc')
+		TriggerService.getRepos(this.lastMonth, this.page)
 		.then(result => this.repos = result.data.items)
 		.catch(error => console.log(error));
+	},
+	methods: {
+		async loadMore() {
+			this.page += 1;
+			TriggerService.getRepos(this.lastMonth, this.page)
+			.then(result => this.repos = [...this.repos, ...result.data.items])
+			.catch(error => console.log(error));
+		}
 	}
 }
 </script>
