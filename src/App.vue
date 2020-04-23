@@ -1,5 +1,7 @@
 <template>
 	<div id="app">
+		<h1>Most Starred Github Repositories in the last 30 days </h1>
+		<hr>
 		<RepoList v-bind:repos="repos" />
 		<Trigger @triggerIntersected="loadMore"/>
 	</div>
@@ -21,7 +23,7 @@ export default {
 		date.setDate(date.getDate() - 30);
 		return {
 			repos: [],
-			page: 0,
+			page: 1,
 			lastMonth: date.toISOString().split('T')[0],
 		}
 	},

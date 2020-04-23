@@ -13,15 +13,27 @@
 			<button type="button" class="btn btn-sm btn-danger">
 				<i class="fa fa-exclamation-circle"></i> Issues: {{repo.open_issues_count}}
 			</button>
-			<span>Submitted {{repo.created_at}} days ago by {{repo.owner.login}}</span>
+			<span>Submitted {{submittedDays(repo.created_at)}} days ago by {{repo.owner.login}}</span>
 		</div>
 	</div>
 </template>
 
 <script>
+
 	export default {
 		name: "Repos",
 		props: ["repo"],
+		methods: {
+			submittedDays(date) {
+				//Today Time type
+				const today = new Date();
+				//Convert created Date from String to Time type
+				const createdDate = new Date(date);
+				//Calculate the no. of days between two dates 
+				const days = Math.floor((today-createdDate) / (1000 * 3600 * 24));
+				return  days;
+			}
+		}
 	}
 </script>
 
